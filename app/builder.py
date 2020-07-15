@@ -11,29 +11,42 @@ if region is None:
     print ("Please set the AWSREGION environment variable.")
     sys.exit(1)
 
-print ("> working on region: {0}".format(region))
+print ("> runing on region: {0}".format(region))
 
-def init_session(r = None):
-    if r is None:
-        r = region
-    s = boto3.session.Session(profile_name=r)
-    return s.resource('ec2')
+def profile_session(reg = None):
+    if reg is None:
+        reg = region
+    session = boto3.session.Session(profile_name=reg)
+    return session.resource('ec2')
 
 
 def build():
     if validate_template() == True:
         try:
             with open(sys.argv[2], 'r') as f:
-                y = yaml.safe_load(f.read())
+                yt = yaml.safe_load(f.read())
         except IOError:
             print( "{0} not found.".format(sys.argv[2]))
             sys.exit(1)
-        for reg in y: # loop through regions
-            ec2 = init_session(reg)
-            for azlst in y[reg]: # loop through AZ list
+        for reg in yt: # loop through regions
+            ec2 = profile_session(reg)
+            for azlst in yt[reg]: # loop through AZ list
                 for az in azlst: # loop through AZ
                     for instance in azlst[az]:    
                         print(instance['name'])
+
+def delete():
+    if len(sys.argv) < 3:
+        print("usage: {0} delete <aws instance id>")
+        sys.exit(1)
+
+    ec2 = profile_session()
+
+    try:
+        ec2.instances.filter(InstanceIds=[sys.argv[2]]).terminate()
+    except:
+        print('error deleting {0}'.format(sys.argv[2]))
+        sys.exit(1)
 
 def validate_template():
     return True
