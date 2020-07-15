@@ -1,0 +1,14 @@
+server:
+  server_type: t3.small
+  volumes:
+  - device: /dev/xvda
+    size_gb: 10
+    type: ext4
+    mount: /
+  - device: /dev/xvdf
+    size_gb: 100
+    type: xfs
+    mount: /data
+  users:
+  - login: user1
+    ssh_key: <user ssh public key goes here> user1@localhost
