@@ -46,15 +46,25 @@ def build():
             sys.exit(1)
         for profile in yt: # profiles loop
             ec2 = profile_session(profile)
-            map = []
+            blockdevmap = []
             for server in yt[profile]: # loop through servers list
                 print(server['server_name'])
                 i = 0
                 for vol in server['volumes']: # loop through AZ
-                    map.append(blockdev(vol))
+                    blockdevmap.append(blockdev(vol))
                     #for instance in server[vol]:    
                      #   print(instance['name'])
                 print("creating instance {0}".format(server['server_name']))
+                rc = ec2.create_instances(
+                        MinCount = 1,
+                        MaxCount = 1,
+                        KeyName = server['users']['login'],
+                        InstanceType = server['server_type'],
+                        BlockDeviceMappings = blockdevmap
+                    )
+                server_id = rc[0].id
+                print("Created server id {0}".format(server_id))
+
 def delete():
     if len(sys.argv) < 3:
         print("usage: {0} delete <aws instance id>")
