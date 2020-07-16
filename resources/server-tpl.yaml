@@ -11,5 +11,5 @@ default:
     type: xfs
     mount: /data
   users:
-  - login: user1
-    ssh_key: <user ssh public key goes here> user1@localhost
+  - login: marcelodevops
+    ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDmV0JLaGBWhV3cTYb6EXosBE+91/hCn+3m5VIRLYKk2+WSjnJamxHo9e+S0G/X3QcsaTqDlDMkWJM5JrzBTfD3Z0KQHEscn5DD0zLXCV8m3FmOGLTWo4W9QouNzvB+xUgoPPrLUALTKOSlM3XezKxByniyIQf3VmqsGD/SsUdPJxKOU151YDudi6wm5hcR7cAGf6O5BxL+VdHt8hXIxwaFooOAIZ9beg/P0l2TjtuKXhvcH1dv7D9V+l6+sne7iS9y76olFXvoRISQMy3ySGLp1P+m8IueQZom7KIxNOQLUO18Uc0qNr2uJy2vdt1Un7u/bO4A7tVu+/3MNg08FUVX marcelogarcia@marcelos-MacBook-Pro.local
