@@ -45,7 +45,7 @@ def user_data(volumes):
     userdata = '#!/bin/bash \n'
     for vol in volumes:
         userdata = userdata + 'mkdir -p ' + vol['mount'] +'\n'
-        userdata = userdata + 'mount ' + vol['device'] + ' ' + vol['mount'] + '\n'
+        userdata = userdata + 'mount -t ' + vol['type'] + ' ' + vol['device'] + ' ' + vol['mount'] + '\n'
     return userdata
 # build the instance
 
